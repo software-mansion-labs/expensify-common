@@ -2151,3 +2151,22 @@ describe('room mentions', () => {
         expect(parser.replace(testString)).toBe(resultString);
     });
 });
+
+test('emoji within italic, bold and strikethrough markdown', () => {
+    const testString = '__aa 😄 aa__';
+    const resultString = '_<em>aa </em><emoji>😄</emoji><em> aa</em>_';
+    expect(parser.replace(testString, {shouldKeepRawInput: true})).toBe(resultString);
+});
+
+test('emoji within italic, bold and strikethrough markdown', () => {
+    const testString = '_*aa 😄 aa 😄 aa*_';
+    const resultString = '<em><strong>aa </strong></em><emoji>😄</emoji><em><strong> aa </strong></em><emoji>😄</emoji><em><strong> aa</strong></em>';
+    expect(parser.replace(testString, {shouldKeepRawInput: true})).toBe(resultString);
+});
+
+test('emoji within italic, bold and strikethrough markdown', () => {
+    const testString = '~_*aa 😄 aa 😄 aa*_~';
+    const resultString = '<em><strong><del>aa </del></strong></em><emoji>😄</emoji><em><strong><del> aa </del></strong></em><emoji>😄</emoji><em><strong><del> aa</del></strong></em>';
+    expect(parser.replace(testString, {shouldKeepRawInput: true})).toBe(resultString);
+});
+
